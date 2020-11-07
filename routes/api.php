@@ -20,5 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/dummy', function (Request $request) {
-    return "Dummy endpoint!";
+    return json_encode(
+        array("message" => "Dummy endpoint!")
+    );
 });
