@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
+// Auth:
+Route::get('auth/user-profile',     'AuthController@userProfile');
+Route::post('auth/login',           'AuthController@login');
+Route::post('auth/register',        'AuthController@register');
+Route::post('auth/refresh-token',   'AuthController@refreshToken');
+Route::post('auth/logout',          'AuthController@logout');
 
-Route::get('/dummy', function (Request $request) {
-    return json_encode(
-        array("message" => "Dummy endpoint!")
-    );
-});
+// Users:
+Route::get('users',                 'UserController@index');
+Route::get('users/{id}',            'UserController@show');
+Route::post('users',                'UserController@store');
+Route::delete('users/{id}',         'UserController@delete');

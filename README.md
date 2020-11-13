@@ -133,3 +133,76 @@ Heroku configuration:
 	If getting permission denied error:
 	sudo chmod -R 777 storage/
 	sudo chmod -R 777 bootstrap/cache/
+
+
+
+
+
+===========================================================
+
+
+
+# Laravel cheatsheet:
+
+
+## Migration:
+
+- Migrate data:
+	php artisan migrate
+	(Will create tables based on the files inside 'migrations' folder)
+
+
+- Rollback data:
+	php artisan migrate:rollback
+	(Will remove all tables - only 'migrations' table will remain inside the DB)
+
+
+
+## Seeding:
+
+- Generate seeder:
+	php artisan make:seeder <seeder_name>
+
+
+- Running Seeders:
+	php artisan db:seed
+
+	php artisan db:seed --class=<seeder_name>
+
+
+
+
+## Factories:
+
+- Generat factory:
+	php artisan make:factory UserFactory
+
+
+
+
+## Models:
+
+- Genereate model (+ migration):
+    php artisan make:model <model_name> -m
+
+
+
+
+## Resources:
+
+- Genereate resource:
+    php artisan make:resource <resource_name>
+
+
+
+## Controllers:
+
+- Generate controller:
+	php artisan make:controller <controller_name>
+
+
+
+## Middlewares:
+
+- Generate middleware:
+	php artisan make:middleware <middleware_name>
