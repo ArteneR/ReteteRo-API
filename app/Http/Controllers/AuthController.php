@@ -40,10 +40,22 @@ class AuthController extends Controller
 
 
         public function login(Request $request) {
-                $validator = Validator::make($request->all(), [
-                    'email'    => 'required|email',
-                    'password' => 'required|string|min:6',
-                ]);
+                $requestParams = $request->all();
+                $validations = array(
+                        'username' => 'required',
+                        'password' => 'required|string|min:6'
+                );
+
+                $authType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+                if ($authType == 'email') { 
+                        $requestParams['email'] = $request->username;
+                        $validations['email']   = 'required|email';
+                        unset($validations['username']);
+                        unset($requestParams['username']);
+                }
+
+                $validator = Validator::make($requestParams, $validations);
 
                 if ($validator->fails()) {
                     return response()->json($validator->errors(), 422);
