@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
+use App\Http\Resources\AuthLogin as AuthLoginResource;
 
 
 class AuthController extends Controller
 {
         public function __construct() {
-                $this->middleware('auth:api', ['except' => ['register', 'login']]);
+                $this->middleware('auth:api', ['except' => ['register', 'login', 'refreshToken']]);
         }
 
 
@@ -77,7 +78,14 @@ class AuthController extends Controller
 
 
         public function refreshToken() {
-                return $this->createNewToken(auth()->refresh());
+                try {
+                        $newToken = $this->createNewToken(auth()->refresh());
+                }
+                catch (\Exception $e) {
+                        return response()->json(['status' => 'fail', 'message' => 'User not authenticated yet']);
+                }
+
+                return $newToken;
         }
 
 
@@ -87,11 +95,15 @@ class AuthController extends Controller
 
 
         protected function createNewToken($token){
-                return response()->json([
-                    'access_token'  => $token,
-                    'token_type'    => 'bearer',
-                    'expires_in'    => auth()->factory()->getTTL() * 60,
-                    'user'          => auth()->user()
-                ]);
+                $user = auth()->user();
+                $user['access_token'] = [
+                        'jwt'        => $token,
+                        'type'       => 'bearer',
+                        'expires_in' => auth()->factory()->getTTL() * 60
+                ];
+
+                return (new AuthLoginResource($user))
+                        ->response()
+                        ->setStatusCode(201);
         }
 }
