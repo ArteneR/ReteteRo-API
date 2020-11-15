@@ -23,7 +23,8 @@ class User extends Authenticatable implements JWTSubject
                 'password',
                 'email',
                 'first_name',
-                'last_name'
+                'last_name',
+                'roles'
         ];
 
         
@@ -34,6 +35,16 @@ class User extends Authenticatable implements JWTSubject
          */
         protected $hidden = [
                 'password'
+        ];
+
+
+        /**
+         * The attributes that are guarded (eg. to protect against mass assignment).
+         *
+         * @var array
+         */
+        protected $guarded = [
+                'roles'
         ];
 
 

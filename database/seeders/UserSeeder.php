@@ -14,5 +14,14 @@ class UserSeeder extends Seeder
          */
         public function run() {
                 \App\Models\User::factory()->count(2)->create();
+
+                \App\Models\User::create([
+                        'username'   => 'ArteneR',
+                        'password'   => bcrypt('Amiga1200'),
+                        'email'      => 'georgevici.ioan@gmail.com',
+                        'first_name' => 'Mihai',
+                        'last_name'  => 'Georgevici',
+                        'roles'      => 'user,admin'
+                ]);
         }
 }

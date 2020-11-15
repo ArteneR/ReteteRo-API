@@ -8,10 +8,11 @@ use App\Models\User;
 use App\Http\Resources\AuthLogin as AuthLoginResource;
 
 
-class AuthController extends Controller
+class AdminAuthController extends Controller
 {
         public function __construct() {
                 $this->middleware('auth:api', ['except' => ['register', 'login', 'refreshToken']]);
+                $this->middleware('is_admin:api', ['only' => ['adminProfile']]);
         }
 
 
@@ -67,6 +68,13 @@ class AuthController extends Controller
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
 
+                // Check for Admin role:
+                $this->auth = auth()->user() ? (strpos(auth()->user()->roles, 'admin') !== false) : false;
+
+                if ($this->auth !== true) {
+                    return response()->json(['error' => 'This user doesn\'t have Admin rights!'], 401);
+                }
+
                 return $this->createNewToken($token);
         }
 
@@ -90,7 +98,7 @@ class AuthController extends Controller
         }
 
 
-        public function userProfile() {
+        public function adminProfile() {
                 return response()->json(auth()->user());
         }
 
@@ -107,4 +115,6 @@ class AuthController extends Controller
                         ->response()
                         ->setStatusCode(201);
         }
+
+
 }
