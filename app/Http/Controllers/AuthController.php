@@ -78,18 +78,6 @@ class AuthController extends Controller
         }
 
 
-        public function refreshToken() {
-                try {
-                        $newToken = $this->createNewToken(auth()->refresh());
-                }
-                catch (\Exception $e) {
-                        return response()->json(['status' => 'fail', 'message' => 'User not authenticated yet']);
-                }
-
-                return $newToken;
-        }
-
-
         public function userProfile() {
                 return response()->json(auth()->user());
         }
@@ -106,5 +94,17 @@ class AuthController extends Controller
                 return (new AuthLoginResource($user))
                         ->response()
                         ->setStatusCode(201);
+        }
+
+
+        public function refreshToken() {
+                try {
+                        $newToken = $this->createNewToken(auth()->refresh());
+                }
+                catch (\Exception $e) {
+                        return response()->json(['status' => 'fail', 'message' => 'User not authenticated yet']);
+                }
+
+                return $newToken;
         }
 }
