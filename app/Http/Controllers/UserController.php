@@ -12,6 +12,7 @@ class UserController extends Controller
 {
         public function __construct() {
                 $this->middleware('auth:api', ['except' => ['show']]);
+                $this->middleware('is_admin:api', ['only' => ['']]);
         }
 
 
