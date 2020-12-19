@@ -11,22 +11,22 @@ use App\Http\Resources\UserCollection;
 class UserController extends Controller
 {
         public function __construct() {
-                $this->middleware('auth:api', ['except' => ['show']]);
+                $this->middleware('auth:api', ['except' => ['get']]);
                 $this->middleware('is_admin:api', ['only' => ['']]);
         }
 
 
-        public function index() {
+        public function getAll() {
                 return new UserCollection(User::all());
         }
 
 
-        public function show($id) {
+        public function get($id) {
                 return new UserResource(User::findOrFail($id));
         }
 
 
-        public function store(Request $request) {
+        public function create(Request $request) {
                 $request->validate([
                         'username' => 'required|max:255',
                 ]);

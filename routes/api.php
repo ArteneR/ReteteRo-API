@@ -24,7 +24,8 @@ Route::post('auth/logout',          'AuthController@logout');
 
 
 // Users:
-Route::get('users',                 'UserController@index');
-Route::get('users/{id}',            'UserController@show');
-Route::post('users',                'UserController@store');
+Route::get('users',                 'UserController@getAll');
+Route::post('users',                'UserController@create');
+
+Route::get('users/{id}',            'UserController@get');
 Route::delete('users/{id}',         'UserController@delete');
