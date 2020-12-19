@@ -17,26 +17,26 @@ class AuthController extends Controller
 
         public function register(Request $request) {
                 $validator = Validator::make($request->all(), [
-                    'username'   => 'required|string|between:2,100',
-                    'password'   => 'required|string|confirmed|min:6',
-                    'email'      => 'required|string|email|max:100|unique:users',
-                    'first_name' => 'required|string|between:2,100',
-                    'last_name'  => 'required|string|between:2,100',
-                    'roles'      => 'required|string'
+                        'username'   => 'required|string|between:2,100',
+                        'password'   => 'required|string|confirmed|min:6',
+                        'email'      => 'required|string|email|max:100|unique:users',
+                        'first_name' => 'required|string|between:2,100',
+                        'last_name'  => 'required|string|between:2,100'
                 ]);
 
                 if ($validator->fails()) {
-                    return response()->json($validator->errors(), 400);
+                        return response()->json($validator->errors(), 400);
                 }
 
                 $user = User::create(array_merge(
-                            $validator->validated(),
-                            ['password' => bcrypt($request->password)]
-                        ));
+                        $validator->validated(),
+                        ['password' => bcrypt($request->password)],
+                        ['roles'    => 'user']
+                ));
 
                 return response()->json([
-                    'message' => 'User successfully registered',
-                    'user'    => $user
+                        'message' => 'User successfully registered',
+                        'user'    => $user
                 ], 201);
         }
 
@@ -60,11 +60,11 @@ class AuthController extends Controller
                 $validator = Validator::make($requestParams, $validations);
 
                 if ($validator->fails()) {
-                    return response()->json($validator->errors(), 422);
+                        return response()->json($validator->errors(), 422);
                 }
 
                 if (!$token = auth()->attempt($validator->validated())) {
-                    return response()->json(['error' => 'Unauthorized'], 401);
+                        return response()->json(['error' => 'Unauthorized'], 401);
                 }
 
                 return $this->createNewToken($token);
@@ -114,11 +114,18 @@ class AuthController extends Controller
 
 
         public function deleteUserProfile() {
-                return response()->json(auth()->user());
+                $user = auth()->user();
+                $userToDelete = $user;
+                $user->delete();
+
+                return response()->json([
+                        'message' => 'User successfully deleted',
+                        'user'    => $userToDelete
+                ], 200);
         }
 
 
-        protected function createNewToken($token){
+        protected function createNewToken($token) {
                 $user = auth()->user();
                 $user['access_token'] = [
                         'jwt'        => $token,
