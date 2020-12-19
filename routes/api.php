@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 
 // Auth:
-Route::get('auth/user-profile',     'AuthController@userProfile');
-Route::post('auth/login',           'AuthController@login');
 Route::post('auth/register',        'AuthController@register');
-Route::post('auth/refresh-token',   'AuthController@refreshToken');
+Route::post('auth/login',           'AuthController@login');
 Route::post('auth/logout',          'AuthController@logout');
+Route::post('auth/refresh-token',   'AuthController@refreshToken');
+
+Route::get('auth/user-profile',     'AuthController@getUserProfile');
+Route::put('auth/user-profile',     'AuthController@updateUserProfile');
+Route::delete('auth/user-profile',  'AuthController@deleteUserProfile');
 
 
 // Users:
 Route::get('users',                 'UserController@getAll');
-Route::post('users',                'UserController@create');
-
 Route::get('users/{id}',            'UserController@get');
-Route::delete('users/{id}',         'UserController@delete');

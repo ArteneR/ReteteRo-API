@@ -78,7 +78,42 @@ class AuthController extends Controller
         }
 
 
-        public function userProfile() {
+        public function getUserProfile() {
+                return response()->json(auth()->user());
+        }
+
+
+        public function updateUserProfile(Request $request) {
+                $user = auth()->user();
+
+                $validator = Validator::make($request->all(), [
+                        'username'   => "string|between:2,100|unique:users,username,$user->id",
+                        'password'   => 'string|confirmed|min:6',
+                        'email'      => "string|email|max:100|unique:users,email,$user->id",
+                        'first_name' => 'string|between:2,100',
+                        'last_name'  => 'string|between:2,100'
+                ]);
+
+                if ($validator->fails()) {
+                        return response()->json($validator->errors(), 400);
+                }
+
+                $user->username   = $request->username   ? $request->username         : $user->username;
+                $user->password   = $request->password   ? bcrypt($request->password) : $user->password;
+                $user->email      = $request->email      ? $request->email            : $user->email;
+                $user->first_name = $request->first_name ? $request->first_name       : $user->first_name;
+                $user->last_name  = $request->last_name  ? $request->last_name        : $user->last_name;
+
+                $user->save();
+
+                return response()->json([
+                        'message' => 'User successfully updated',
+                        'user'    => $user
+                ], 200);
+        }
+
+
+        public function deleteUserProfile() {
                 return response()->json(auth()->user());
         }
 
