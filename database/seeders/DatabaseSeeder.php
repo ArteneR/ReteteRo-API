@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
                 // Disable all mass assignment restrictions
                 Model::unguard();
             
-                $this->call(UserSeeder::class);
+                $this->call(UsersSeeder::class);
+                $this->call(RecipesSeeder::class);
             
                 // Re enable all mass assignment restrictions
                 Model::reguard();

@@ -25,12 +25,15 @@ class CreateUsersTable extends Migration
                 });
         }
 
+        
         /**
          * Reverse the migrations.
          *
          * @return void
          */
         public function down() {
+                Schema::disableForeignKeyConstraints();
                 Schema::dropIfExists('users');
+                Schema::enableForeignKeyConstraints();
         }
 }

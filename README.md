@@ -157,11 +157,15 @@ Heroku configuration:
 	(Will remove all tables - only 'migrations' table will remain inside the DB)
 
 
+- Create migration file
+	php artisan make:migration create_recipes_table
+
+
 
 ## Seeding:
 
 - Generate seeder:
-	php artisan make:seeder <seeder_name>
+	php artisan make:seeder <seeder_name>			(php artisan make:seeder UsersSeeder)
 
 
 - Running Seeders:
@@ -183,7 +187,7 @@ Heroku configuration:
 ## Models:
 
 - Genereate model (+ migration):
-    php artisan make:model <model_name> -m
+    php artisan make:model <model_name> -m			(php artisan make:model User)
 
 
 

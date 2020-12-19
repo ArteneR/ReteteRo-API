@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 
-class UserSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
         /**
          * Run the database seeds.
@@ -13,9 +14,9 @@ class UserSeeder extends Seeder
          * @return void
          */
         public function run() {
-                \App\Models\User::factory()->count(2)->create();
+                User::factory()->count(2)->create();
 
-                \App\Models\User::create([
+                User::create([
                         'username'   => 'ArteneR',
                         'password'   => bcrypt('Amiga1200'),
                         'email'      => 'georgevici.ioan@gmail.com',
