@@ -17,9 +17,9 @@ class CreateRecipeCommentsTable extends Migration
                         $table->increments('id');
                         $table->integer('recipe_id')->unsigned();
                         $table->foreign('recipe_id')->references('id')->on('recipes');
-                        $table->integer('user_id')->unsigned();
+                        $table->integer('user_id')->unsigned()->nullable();
                         $table->foreign('user_id')->references('id')->on('users');
-                        $table->integer('guest_id')->unsigned();
+                        $table->integer('guest_id')->unsigned()->nullable();
                         $table->foreign('guest_id')->references('id')->on('guests');
                         $table->string('comment', 1000);
                         $table->timestamps();
