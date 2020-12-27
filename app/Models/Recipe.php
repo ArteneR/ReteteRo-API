@@ -51,7 +51,32 @@ class Recipe extends Model
         protected $casts = [];
 
 
+        public function author() {
+                return $this->belongsTo(User::class);
+        }
+
+
+        public function category() {
+                return $this->hasMany(RecipeCategory::class);
+        }
+
+
         public function images() {
                 return $this->hasMany(RecipeImage::class);
+        }
+
+
+        public function views() {
+                return $this->hasMany(RecipeView::class);
+        }
+
+
+        public function votes() {
+                return $this->hasMany(RecipeVote::class);
+        }
+
+
+        public function comments() {
+                return $this->hasMany(RecipeComment::class);
         }
 }
