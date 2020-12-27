@@ -49,4 +49,9 @@ class Recipe extends Model
          * @var array
          */
         protected $casts = [];
+
+
+        public function images() {
+                return $this->hasMany(RecipeImage::class);
+        }
 }
