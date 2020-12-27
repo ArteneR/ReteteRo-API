@@ -29,3 +29,11 @@ Route::delete('auth/user-profile',  'AuthController@deleteUserProfile');
 // Users:
 Route::get('users',                 'UserController@getAll');
 Route::get('users/{id}',            'UserController@get');
+
+
+// Recipes:
+Route::get('recipes',               'RecipeController@getAll');
+Route::get('recipes/{id}',          'RecipeController@get');
+Route::post('recipes',              'RecipeController@create');
+Route::put('recipes/{id}',          'RecipeController@update');
+Route::delete('recipes/{id}',       'RecipeController@delete');
