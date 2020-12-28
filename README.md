@@ -145,6 +145,16 @@ Heroku configuration:
 # Laravel cheatsheet:
 
 
+## Fixing issues with cache:
+
+php artisan config:cache
+
+php artisan config:clear
+
+composer dump-autoload -o
+
+
+
 ## Migration:
 
 - Migrate data:
