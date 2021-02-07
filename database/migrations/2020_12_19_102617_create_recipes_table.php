@@ -22,8 +22,8 @@ class CreateRecipesTable extends Migration
                     $table->string('time');
                     $table->string('difficulty');
                     $table->double('portions', 8, 1);
-                    $table->json('ingredients');
-                    $table->json('preparation_method');
+                    $table->text('ingredients');
+                    $table->text('preparation_method');
                     $table->timestamps();
                 });
         }
