@@ -21,9 +21,9 @@ class RecipeResource extends JsonResource
                     'ingredients'        => json_decode($this->ingredients),
                     'preparation_method' => json_decode($this->preparation_method),
                     'cover_image'        => $this->getCoverImage($this->images),
-                    'views'              => count($this->views),
-                    'votes'              => count($this->votes),
-                    'comments'           => count($this->comments),
+                    'total_views'        => count($this->views),
+                    'total_votes'        => count($this->votes),
+                    'total_comments'     => count($this->comments),
                     'rating'             => $this->getRating($this->votes),
                     'createdAt'          => $this->created_at,
                     'updatedAt'          => $this->updated_at
