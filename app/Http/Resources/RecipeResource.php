@@ -21,6 +21,7 @@ class RecipeResource extends JsonResource
                     'ingredients'        => json_decode($this->ingredients),
                     'preparation_method' => json_decode($this->preparation_method),
                     'cover_image'        => $this->getCoverImage($this->images),
+                    'images'             => $this->getImages($this->images),
                     'total_views'        => count($this->views),
                     'total_votes'        => count($this->votes),
                     'total_comments'     => count($this->comments),
@@ -43,6 +44,21 @@ class RecipeResource extends JsonResource
                 }
 
                 return $cover_image;
+        }
+
+
+        private function getImages($images) {
+                $recipe_images = [];
+
+                foreach ($images as $image) {
+                        $recipe_images[] = [
+                                'image'          => $image->image,
+                                'is_cover_image' => $image->is_cover_image,
+                                'order'          => $image->order
+                        ];
+                }
+
+                return $recipe_images;
         }
 
 
